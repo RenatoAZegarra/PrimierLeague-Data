@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> PremierLeagueData </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,url("https://sportsmax.tv/media/k2/items/cache/6975475222b50a1de5faaadcdbb5bb86_XL.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            color: aliceblue;
+        }
+        h1, h2, p{
+            text-align: center;
+        }
+        h1{
+            font-size: 70px;
+        }
+        .col-md-6{
+            padding: 50px;
+        }
+        .btn {
+            width: 100%;
+            margin-top: 20px; 
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Premier League Data</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mt-5">
+                    <h2 class="mb-4">Register</h2>
+                    <form action="/user/new" method="POST">
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">First Name:</label>
+                            <input class="form-control" type="text" name="first_name" id="first_name">
+                            {% for message in get_flashed_messages(category_filter=['error_first_name']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name:</label>
+                            <input class="form-control" type="text" name="last_name" id="last_name">
+                            {% for message in get_flashed_messages(category_filter=['error_last_name']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="team_id" class="form-label">Pick Favorite Team:</label>
+                            <select class="form-select" aria-label="Default select example" name="team_id" id="team_id">
+                                <option value="0" selected>Open this select menu</option>
+                                <option value="1044">AFC Bournemouth</option>
+                                <option value="57">Arsenal FC</option>
+                                <option value="58">Aston Villa FC</option>
+                                <option value="402">Brentford FC</option>
+                                <option value="397">Brighton & Hove Albion FC</option>
+                                <option value="354">Crystal Palace</option>
+                                <option value="61">Chelsea FC</option>
+                                <option value="62">Everton FC</option>
+                                <option value="63">Fulham FC</option>
+                                <option value="341">Leeds United FC</option>
+                                <option value="338">Leicester City FC</option>
+                                <option value="64">Liverpool FC</option>
+                                <option value="65">Manchester City FC</option>
+                                <option value="66">Manchester United FC</option>
+                                <option value="67">Newcastle United FC</option>
+                                <option value="351">Nottingham Forest FC</option>
+                                <option value="340">Southampton FC</option>
+                                <option value="73">Tottenham Hotspur FC</option>
+                                <option value="563">West Ham United FC</option>
+                                <option value="76">Wolverhampton Wanderers FC</option>
+                            </select>
+                            {% for message in get_flashed_messages(category_filter=['error_team_id']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input class="form-control" type="email" name="email" id="email">
+                            {% for message in get_flashed_messages(category_filter=['error_email']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input class="form-control" type="password" name="password" id="password">
+                            {% for message in get_flashed_messages(category_filter=['error_password']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password:</label>
+                            <input class="form-control" type="password" name="password_confirmation" id="password_confirmation">
+                            {% for message in get_flashed_messages(category_filter=['error_confirm_password']): %}
+                            <div class="alert alert-danger mt-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mt-5">
+                    <h2 class="mb-4">Login</h2>
+                    <form action="/login" method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input class="form-control" type="email" name="email" id="email">
+                            {% for message in get_flashed_messages( category_filter = ['error_login_email']): %}
+                            <div class="alert alert-danger">
+                                {{message}}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input class="form-control" type="password" name="password" id="password">
+                            {% for message in get_flashed_messages( category_filter = ['error_login_password']): %}
+                            <div class="alert alert-danger">
+                                {{message}}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p>Powered by : <a href="https://www.football-data.org/">Football-Data</a></p>
+    </div>
+
+</body>
+
+</html>

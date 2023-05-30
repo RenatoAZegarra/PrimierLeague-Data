@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Info</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='/styles.css')}}">
+    <style>
+        body{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,url("https://external-preview.redd.it/cFYMEI7J2hV8JGC16mTjI1NlA_0dkeop0EB80WBVnSg.jpg?auto=webp&s=dd421406f5b3f1c3abb4c7f1cd27baf92cf9a246");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            color: aliceblue;
+        }
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+    
+        .header-btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            gap: 15px;
+			padding: 20px;
+        }
+        .btn-primary{
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="header row">
+            <div class="header-btns">
+                <h4>PremierLeagueData</h4>
+                <form action="/account/{{session['user_id']}}">
+                    <button type="submit" class="btn btn-light">
+                        Account
+                    </button>
+                </form>
+                <form action='/welcome'>
+                    <button type="submit" class="btn btn-light">
+                        View My Team
+                    </button>
+                </form>
+                <form action="/logout" method="POST">
+                    <button type="submit" class="btn btn-light">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h1 class="text-center mb-5">Update Info</h1>
+        <form action="/user/account/{{ current_user.id }}" method="POST">
+            <div class="row mb-3">
+                <label for="fist_name" class="col-sm-2 col-form-label">First Name:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="first_name" id="first_name"
+                        value="{{ current_user.first_name }}">
+                    {% for message in get_flashed_messages( category_filter = ['error_first_name']): %}
+                    <div class="alert alert-danger mt-2">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="last_name" class="col-sm-2 col-form-label">Last Name:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="last_name" id="last_name"
+                        value="{{current_user.last_name}}">
+                    {% for message in get_flashed_messages( category_filter = ['error_last_name']): %}
+                    <div class="alert alert-danger mt-2">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="email" id="email" value="{{current_user.email}}">
+                    {% for message in get_flashed_messages( category_filter = ['error_email']): %}
+                    <div class="alert alert-danger mt-2">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="team_id" class="col-sm-2 col-form-label">Pick Favorite Team:</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="team_id" id="team_id"
+                        value="{{current_user.team_id}}">
+                        <option value="0" selected>Open this select menu </option>
+                        <option value="1044">AFC Bournemouth</option>
+                        <option value="57">Arsenal FC</option>
+                        <option value="58">Aston Villa FC</option>
+                        <option value="402">Brentford FC</option>
+                        <option value="397">Brighton & Hove Albion FC</option>
+                        <option value="354">Crystal Palace</option>
+                        <option value="61">Chelsea FC</option>
+                        <option value="62">Everton FC</option>
+                        <option value="63">Fulham FC</option>
+                        <option value="341">Leeds United FC</option>
+                        <option value="338">Leicester City FC</option>
+                        <option value="64">Liverpool FC</option>
+                        <option value="65">Manchester City FC</option>
+                        <option value="66">Manchester United FC</option>
+                        <option value="67">Newcastle United FC</option>
+                        <option value="351">Nottingham Forest FC</option>
+                        <option value="340">Southampton FC</option>
+                        <option value="73">Tottenham Hotspur FC</option>
+                        <option value="563">West Ham United FC</option>
+                        <option value="76">Wolverhampton Wanderers FC</option>
+                    </select>
+                    {% for message in get_flashed_messages( category_filter = ['error_team_id']): %}
+                    <div class="alert alert-danger mt-2">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Update Info</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

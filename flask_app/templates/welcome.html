@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Welcome</title>
+	<!-- Add the Bootstrap CDN link -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		.container-fluid {
+			background-image:linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+			url('{{ team.stadium }}');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center;
+			background-size: cover;
+			color: aliceblue;
+			margin-bottom: 0;
+  			padding-bottom: 50px;
+		}
+
+		h1,
+		h2,
+		h3,
+		p {
+			text-align: center;
+		}
+
+		.header {
+			display: flex;
+			justify-content: end;
+			align-content: center;
+			gap: 15px;
+			padding: 20px;
+		}
+
+		.header h4 {
+			justify-content: start;
+		}
+
+		.table {
+			padding: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="header row">
+			<h4>PremierLeagueData</h4>
+			<div>
+				<form action="/account/{{session['user_id']}}">
+					<button type="submit" class="btn btn-light">
+						Account
+					</button>
+				</form>
+			</div>
+			<div>
+				<form action='/league_table'>
+					<button type="submit" class="btn btn-light">
+						View All Teams
+					</button>
+				</form>
+			</div>
+			<div>
+				<form action="/logout" method="POST">
+					<button type="submit" class="btn btn-light">
+						Logout
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-white">Welcome, {{ full_name }}!</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-white">{{ team.name }}'s stats:</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="mt-5">Standings:</h3>
+				<table class="table table-sm table-striped text-white">
+					<thead>
+						<tr>
+							<th scope="col">Position</th>
+							<th scope="col">Team</th>
+							<th scope="col">Points</th>
+							<th scope="col">Games Played</th>
+							<th scope="col">Wins</th>
+							<th scope="col">Draws</th>
+							<th scope="col">Losses</th>
+							<th scope="col">Goals For</th>
+							<th scope="col">Goals Against</th>
+							<th scope="col">Goal Difference</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{ position }}</td>
+							<td>{{ name }}</td>
+							<td>{{ points }}</td>
+							<td>{{ games_played }}</td>
+							<td>{{ wins }}</td>
+							<td>{{ draws }}</td>
+							<td>{{ losses }}</td>
+							<td>{{ goals_for }}</td>
+							<td>{{ goals_against }}</td>
+							<td>{{ goal_diff }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Schedule:</h3>
+				<table class="table table-sm table-striped text-white">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Competition</th>
+							<th>Home Team</th>
+							<th>Away Team</th>
+							<th>Score</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for match in matches %}
+						<tr>
+							<td>{{match.formattedDate}}</td>
+							<td>{{ match.competition.name }}</td>
+							<td>{{ match.homeTeam.name }}</td>
+							<td>{{ match.awayTeam.name }}</td>
+							<td>{{ match.score.fullTime.homeTeam }} - {{ match.score.fullTime.awayTeam }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<h3>Players:</h3>
+				<table class="table table-sm table-striped text-white">
+					<thead>
+						<tr>
+							<th>Player Name</th>
+							<th>Position</th>
+							<th>Date of Birth</th>
+							<th>Nationality</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for player in squad %}
+						<tr>
+							<td>{{ player.name }}</td>
+							{% if player.position == None %}
+							<td>Manager</td>
+							{% else %}
+							<td>{{ player.position }}</td>
+							{% endif %}
+							<td>{{ player.formattedDob}}</td>
+							<td>{{ player.nationality }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<p>Powered by : <a href="https://www.football-data.org/">Football-Data</a></p>
+	</div>
+	<!-- Add the Bootstrap CDN scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
